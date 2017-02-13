@@ -33,7 +33,8 @@ RUN echo "y" | android update sdk --all --no-ui --filter android-25
 RUN echo "y" | android update sdk --all --no-ui --filter sys-img-x86-google_apis-25
 
 # create avd
-RUN android create avd -d "Nexus 5" -n test -t android-25 -g google_apis -b x86 -s WVGA800 -c 512M
+ENV AEMU_DEFAULT_AVD nexus_5
+RUN android create avd -d "Nexus 5" -n "$AEMU_DEFAULT_AVD" -t android-25 -g google_apis -b x86 -s WVGA800 -c 512M
 
 ADD start.sh /
 CMD ["/start.sh"]

@@ -33,11 +33,10 @@ RUN echo "y" | android update sdk --all --no-ui --filter android-25
 RUN echo "y" | android update sdk --all --no-ui --filter sys-img-x86-android-wear-25
 
 # create avd
-RUN android create avd -d "wear_square" -n test -t android-25 -g android-wear -b x86 -s AndroidWearSquare -c 512M
+ENV AEMU_DEFAULT_AVD wear_square
+RUN android create avd -d ${AEMU_DEFAULT_AVD} -n test -t android-25 -g android-wear -b x86 -s AndroidWearSquare -c 512M
 
-# install tool to automatically create license agreement file
-ADD agree-license.sh /usr/local/bin/
+# install tool
+ADD start.sh /
 
-ENV ANDROID_WORKSPACE /workspace
-RUN mkdir ${ANDROID_WORKSPACE}
-WORKDIR ${ANDROID_WORKSPACE}
+CMD ["/start.sh"]
