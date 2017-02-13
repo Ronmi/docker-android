@@ -20,7 +20,7 @@ RUN dpkg --add-architecture i386 \
 ENV ANDROID_BUILD_TOOL https://dl.google.com/android/repository/tools_r25.2.3-linux.zip
 ENV ANDROID_HOME /usr/local/share/android-sdk-linux
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
-RUN mkdir -p ${ANDROID_HOME} \
+RUN mkdir -p ${ANDROID_HOME}  \
  && cd ${ANDROID_HOME} \
  && wget -q -O android-sdk-linux.zip ${ANDROID_BUILD_TOOL} \
  && unzip android-sdk-linux.zip \
@@ -35,9 +35,5 @@ RUN echo "y" | android update sdk --all --no-ui --filter sys-img-x86-google_apis
 # create avd
 RUN android create avd -d "Nexus 5" -n test -t android-25 -g google_apis -b x86 -s WVGA800 -c 512M
 
-# install tool to automatically create license agreement file
-ADD agree-license.sh /usr/local/bin/
-
-ENV ANDROID_WORKSPACE /workspace
-RUN mkdir ${ANDROID_WORKSPACE}
-WORKDIR ${ANDROID_WORKSPACE}
+ADD start.sh /
+CMD ["/start.sh"]
