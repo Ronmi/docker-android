@@ -23,7 +23,7 @@ Correct filename and hash code can be found at `/path_to_your_android_sdk/licens
 
 ```yaml
 workspace:
-  base: /go
+  base: /workspace
 ```
 
 * You might want to use [volume cache plugin](http://plugins.drone.io/drillster/drone-volume-cache/) (or other cache plugins) for caching gradle resources.
